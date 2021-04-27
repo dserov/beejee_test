@@ -1,0 +1,9 @@
+<div class="user_panel">
+    {% if page_name != 'auth' %}
+        {% if is_auth %}
+            <span><a href="/auth/logout">Выход</a></span>
+        {% else %}
+            <span>Для редактирования необходима <a href="/auth">авторизация</a></span>
+        {% endif %}
+    {% endif %}
+</div>

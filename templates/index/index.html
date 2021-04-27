@@ -1,0 +1,53 @@
+{% include 'header.html' %}
+<h1>Список задач</h1>
+{% if content.todos is empty %}
+    Список дел пока пуст.
+{% else %}
+    {% if content.added_new_todo is not empty %}
+        <div class="alert alert-success" role="alert">
+            Успешно сохранено!
+        </div>
+    {% endif %}
+
+    <a class="btn btn-primary" href="/todo/edit">Создать новую задачу</a>
+    <br><br>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Сортировка</span>
+        </div>
+        <select class="form-control" id="order_by">
+            <option value="user_name" {% if content.order_by == 'user_name' %} selected {% endif %}>Имя пользователя</option>
+            <option value="email" {% if content.order_by == 'email' %} selected {% endif %}>Email</option>
+            <option value="status_code" {% if content.order_by == 'status_code' %} selected {% endif %}>Статус</option>
+        </select>
+        <select class="form-control" id="order_direction">
+            <option value="asc" {% if content.order_direction == 'asc' %} selected {% endif %}>По возрастанию</option>
+            <option value="desc" {% if content.order_direction == 'desc' %} selected {% endif %}>По убыванию</option>
+        </select>
+    </div>
+    <br>
+    <div class="todo-list">
+    {% for todo in content.todos %}
+        <div class="todo-item">
+            <span class="todo-item__user-name">{{todo.user_name | escape}}</span>
+            <span class="todo-item__user-email">{{todo.email | escape}}</span><br>
+            <p class="todo-item__content">
+                {{todo.content | escape}}
+            </p>
+            <span class="todo-item__status-label">Статус: </span>
+            <span class="todo-item__status">
+                <label><input class="status" data-id="{{todo.id}}" type="checkbox" value="1" {% if todo.status_code == 1 %} checked {% endif %}> Выполнено</label>
+            </span>
+            <span class="todo-item__admin-edit">
+                <label><input type="checkbox" value="1" {% if todo.admin_edit == 1 %} checked {% endif %} disabled> Отредактировано администратором</label>
+            </span>
+            {% if is_auth %}
+                <a href="/todo/edit/?id={{todo.id}}" class="btn btn-info">Изменить</a>
+            {% endif%}
+        </div>
+    {% endfor %}
+    </div>
+
+    {% include 'paginate.html' %}
+{% endif %}
+{% include 'footer.html' %}

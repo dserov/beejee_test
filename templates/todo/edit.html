@@ -1,0 +1,51 @@
+{% include 'header.html' %}
+
+{% if content.todo.id %}
+    <h1>Изменение задачи</h1>
+{% else %}
+    <h1>Новая задача</h1>
+{% endif %}
+
+{% if content.errors is not empty %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            {% for key,value in content.errors %}
+                <li>{{value | join('<br>')}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if content.success is not empty %}
+    <div class="alert alert-success" role="alert">
+        {{content.success}}
+    </div>
+{% endif %}
+
+<div class="p-4">
+    <form action="/todo/edit/?id={{content.todo.id}}" method="post">
+        <input type="hidden" name="todo[id]" value="{{content.todo.id}}">
+
+        <div class="form-group">
+            <label for="user_name">Ваше имя</label>
+            <input type="text" class="form-control" id="user_name" placeholder="Ваше имя" name="todo[user_name]" value="{{content.todo.user_name}}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email адрес</label>
+            <input type="text" class="form-control" id="email" placeholder="Ваш email" name="todo[email]" value="{{content.todo.email}}">
+        </div>
+        <div class="form-group">
+            <label for="content">Текст задачи</label>
+            <textarea class="form-control" id="content" placeholder="Текст задачи" name="todo[content]">{{content.todo.content}}</textarea>
+        </div>
+        {% if user.id %}
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="status_code" name="todo[status_code]" value="1" {% if content.todo.status_code == 1 %} checked {% endif %}>
+            <label class="form-check-label" for="status_code">Исполнена</label>
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>
+
+{% include 'footer.html' %}
