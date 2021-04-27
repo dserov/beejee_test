@@ -1,7 +1,7 @@
 <?php
-$config['db_user'] = 'root';
-$config['db_password'] = 'root';
-$config['db_base'] = 'todo';
+$config['db_user'] = 't97884yv_todos';
+$config['db_password'] = 'xpudiQrmztKlnEe!';
+$config['db_base'] = 't97884yv_todos';
 $config['db_host'] = 'localhost';
 $config['db_charset'] = 'UTF-8';
 $config['records_per_page'] = 3;
