@@ -64,14 +64,7 @@ class App
         if (!empty($url[0])) {
             $pageName = $url[0];//Часть имени класса контроллера
             if (isset($url[1])) {
-//                if (is_numeric($url[1])) {
-//                    $_GET['id'] = $url[1];
-//                } else {
                 $methodName = $url[1];// имя метода
-//                }
-//                if (isset($url[2])) {//формальный параметр для метода контроллера
-//                    $_GET['id'] = $url[2];
-//                }
             }
         }
 

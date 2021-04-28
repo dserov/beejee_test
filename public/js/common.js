@@ -48,11 +48,16 @@ $(document).ready(function (e) {
             id: $(this).data('id'),
             status_code: $(this).is(":checked")
         };
-        $.post("/todo/update",
+        let posting = $.post("/todo/update",
             JSON.stringify(data),
             function (otvet, textStatus, jqXHR) {
                 show_message('Сохранено!', 'true');
             });
+        posting.fail(function (jqXHR, textStatus, errorThrown) {
+            setTimeout(function () {
+                window.location.reload();
+            }, 1000);
+        });
     });
 
     $.ajaxSetup({
